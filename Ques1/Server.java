@@ -8,9 +8,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server {
+public class Server{
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ServerSocket serverSocket = new ServerSocket(6789);
+        ServerSocket serverSocket = new ServerSocket(7777);
         List<String> idList = new ArrayList<>();
         List<ObjectOutputStream> oosList = new ArrayList<>();
         List<Socket> socketList = new ArrayList<>();
@@ -18,14 +18,14 @@ public class Server {
         ObjectOutputStream oos = null;
         ObjectInputStream ois;
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i <= 4; i++){
             Socket server = serverSocket.accept();
 
             oos = new ObjectOutputStream(server.getOutputStream());
             ois = new ObjectInputStream(server.getInputStream());
 
             String message = (String) ois.readObject();
-            System.out.println("Value from Client : " + message);
+            System.out.println("ID From Client : " + message);
 
             if (message.equals("NO")) {
                 oos.writeObject("Client can not Join Election");
@@ -45,7 +45,7 @@ public class Server {
             }
         }
 
-        System.out.println("Election Start By : " + socketList.get(0).getLocalAddress().getHostAddress());
+        System.out.println("Election Initiated By : " + socketList.get(0).getLocalAddress().getHostAddress());
 
         for (ObjectOutputStream os : oosList) {
             os.writeObject("New Coordinator is " + max);

@@ -8,18 +8,17 @@ import java.util.Scanner;
 
 public class Client3 {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("127.0.0.4", 6789);
+        Socket socket = new Socket("127.0.0.4", 7777);
         Scanner scanner = new Scanner(System.in);
 
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-        System.out.println("Client Connected");
 
-        System.out.print("Value : ");
+        System.out.print("Enter your ID : ");
         String message = scanner.nextLine();
         oos.writeObject(message);
 
         String response = (String) ois.readObject();
-        System.out.println("Response : " + response);
+        System.out.println("Response from server : " + response);
     }
 }
